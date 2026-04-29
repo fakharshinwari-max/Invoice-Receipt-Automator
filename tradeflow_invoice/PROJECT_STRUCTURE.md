@@ -1,8 +1,8 @@
-# TradeFlow Invoice - Complete Project Structure
+# InvoiceCrafting Invoice - Complete Project Structure
 
 ## Folder Structure
 ```
-tradeflow_invoice/
+invoicecrafting_invoice/
 ├── app.py                  # Main Flask application entry point
 ├── config.py               # Configuration settings
 ├── models.py               # SQLAlchemy database models

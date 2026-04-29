@@ -1,5 +1,5 @@
 /**
- * TradeFlow Invoice - Main JavaScript
+ * InvoiceCrafting Invoice - Main JavaScript
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -212,5 +212,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    console.log('TradeFlow Invoice loaded successfully!');
+    console.log('InvoiceCrafting Invoice loaded successfully!');
 });

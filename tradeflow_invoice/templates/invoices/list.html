@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Invoices{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Invoices</h1>
+    <a href="{{ url_for('invoices.create') }}" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+        + New Invoice
+    </a>
+</div>
+
+<!-- Filters -->
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 mb-6">
+    <form method="GET" class="flex flex-wrap gap-4">
+        <select name="status" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+            <option value="all" {% if current_status == 'all' %}selected{% endif %}>All Status</option>
+            <option value="draft" {% if current_status == 'draft' %}selected{% endif %}>Draft</option>
+            <option value="sent" {% if current_status == 'sent' %}selected{% endif %}>Sent</option>
+            <option value="paid" {% if current_status == 'paid' %}selected{% endif %}>Paid</option>
+            <option value="overdue" {% if current_status == 'overdue' %}selected{% endif %}>Overdue</option>
+        </select>
+        <input type="text" name="search" placeholder="Search invoice #" value="{{ search }}" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+        <button type="submit" class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors">Filter</button>
+    </form>
+</div>
+
+<!-- Invoices Table -->
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <thead class="bg-gray-50 dark:bg-gray-900">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Invoice #</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Client</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Due Date</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            {% for invoice in invoices %}
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{{ invoice.invoice_number }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ invoice.client.name }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${{ "%.2f"|format(invoice.total) }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 py-1 text-xs rounded-full {% if invoice.status == 'paid' %}bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300{% elif invoice.status == 'overdue' %}bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300{% elif invoice.status == 'sent' %}bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300{% else %}bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300{% endif %}">{{ invoice.status|title }}</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ invoice.due_date.strftime('%m/%d/%Y') }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <a href="{{ url_for('invoices.view', invoice_id=invoice.id) }}" class="text-primary-600 dark:text-primary-400 hover:underline mr-3">View</a>
+                    <a href="{{ url_for('invoices.edit', invoice_id=invoice.id) }}" class="text-blue-600 dark:text-blue-400 hover:underline mr-3">Edit</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">No invoices found. <a href="{{ url_for('invoices.create') }}" class="text-primary-600 dark:text-primary-400 hover:underline">Create your first invoice</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
