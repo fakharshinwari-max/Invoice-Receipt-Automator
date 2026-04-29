@@ -1,5 +1,5 @@
 """
-TradeFlow Invoice - Main Application Entry Point
+InvoiceCrafting Invoice - Main Application Entry Point
 A simple, beautiful invoice & receipt automator for freelancers and tradespeople.
 """
 

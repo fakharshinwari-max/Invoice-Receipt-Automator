@@ -72,7 +72,7 @@ def register():
         
         log_activity(user.id, 'register', ip_address=request.remote_addr)
         
-        flash('Account created successfully! Welcome to TradeFlow Invoice.', 'success')
+        flash('Account created successfully! Welcome to InvoiceCrafting Invoice.', 'success')
         return redirect(url_for('auth.login'))
     
     return render_template('auth/register.html', form=form)

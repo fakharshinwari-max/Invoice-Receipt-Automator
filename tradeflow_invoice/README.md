@@ -1,4 +1,4 @@
-# TradeFlow Invoice
+# InvoiceCrafting Invoice
 
 **The simplest way for tradespeople and freelancers to create professional invoices, auto-categorize receipts into expenses, and see real profit per job.**
 
@@ -35,7 +35,7 @@
 
 1. **Clone or navigate to the project directory:**
    ```bash
-   cd tradeflow_invoice
+   cd invoicecrafting_invoice
    ```
 
 2. **Create a virtual environment:**
@@ -77,7 +77,7 @@ For testing purposes, a default admin account is created:
 
 ```env
 SECRET_KEY=your-secret-key-here
-DATABASE_URL=sqlite:///tradeflow.db
+DATABASE_URL=sqlite:///invoicecrafting.db
 MAIL_SERVER=smtp.gmail.com
 MAIL_PORT=587
 MAIL_USE_TLS=true
@@ -95,7 +95,7 @@ For production with PostgreSQL:
 pip install psycopg2-binary
 
 # Set DATABASE_URL in .env
-DATABASE_URL=postgresql://user:password@localhost:5432/tradeflow_db
+DATABASE_URL=postgresql://user:password@localhost:5432/invoicecrafting_db
 ```
 
 ## Deployment
@@ -115,7 +115,7 @@ DATABASE_URL=postgresql://user:password@localhost:5432/tradeflow_db
 heroku login
 
 # Create app
-heroku create tradeflow-invoice
+heroku create invoicecrafting-invoice
 
 # Add PostgreSQL
 heroku addons:create heroku-postgresql:hobby-dev
@@ -149,7 +149,7 @@ CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
 ## Project Structure
 
 ```
-tradeflow_invoice/
+invoicecrafting_invoice/
 ├── app.py                 # Main application entry point
 ├── config.py              # Configuration settings
 ├── models.py              # SQLAlchemy database models
@@ -265,7 +265,7 @@ This project is licensed under the MIT License - see LICENSE file for details.
 
 ## Support
 
-For support, email support@tradeflow.invoice or open an issue in the repository.
+For support, email support@invoicecrafting.invoice or open an issue in the repository.
 
 ## Changelog
 
