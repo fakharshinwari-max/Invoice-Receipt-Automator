@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # InvoiceCrafting Invoice
 
 **The simplest way for tradespeople and freelancers to create professional invoices, auto-categorize receipts into expenses, and see real profit per job.**
@@ -284,6 +283,3 @@ For support, email support@invoicecrafting.invoice or open an issue in the repos
 ---
 
 Built with ❤️ for tradespeople and freelancers everywhere.
-=======
-# Invoice-Receipt-Automator
->>>>>>> c51d92b43288a03967e4e10480fe81c89de71701
