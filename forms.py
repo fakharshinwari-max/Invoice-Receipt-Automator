@@ -78,7 +78,7 @@ class ClientForm(FlaskForm):
     phone = StringField('Phone')
     address = TextAreaField('Address')
     notes = TextAreaField('Notes')
-    submit = SubmitField('Create Client')   # Add submit button
+    submit = SubmitField('Create Client')
 
 
 # Job Forms
@@ -97,28 +97,7 @@ class JobForm(FlaskForm):
     budget = DecimalField('Budget', places=2, validators=[Optional()])
 
 
-# Invoice Forms
-class InvoiceForm(FlaskForm):
-    client_id = SelectField('Client', coerce=int, validators=[DataRequired()])
-    job_id = SelectField('Job/Project', coerce=int, validators=[Optional()])
-    invoice_number = StringField('Invoice Number', validators=[DataRequired()])
-    issue_date = DateField('Issue Date', format='%Y-%m-%d', validators=[DataRequired()])
-    due_date = DateField('Due Date', format='%Y-%m-%d', validators=[DataRequired()])
-    tax_rate = DecimalField('Tax Rate (%)', places=2, default=0.0)
-    discount_amount = DecimalField('Discount', places=2, default=0.0)
-    notes = TextAreaField('Notes')
-    terms = TextAreaField('Terms & Conditions')
-    template_type = SelectField('Template Type')
-    status = SelectField('Status', choices=[
-        ('draft', 'Draft'),
-        ('sent', 'Sent'),
-        ('paid', 'Paid'),
-        ('partially_paid', 'Partially Paid'),
-        ('overdue', 'Overdue'),
-        ('cancelled', 'Cancelled')
-    ])
-    amount_paid = DecimalField('Amount Paid', places=2, default=0.0)
-
+# InvoiceItemForm is already defined above
 
 class InvoiceItemForm(FlaskForm):
     description = StringField('Description', validators=[DataRequired(), Length(max=500)])

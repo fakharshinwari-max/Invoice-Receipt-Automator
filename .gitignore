@@ -21,18 +21,20 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtual Environment
+# Virtual environments
 venv/
-env/
 ENV/
+env/
 .venv/
-.env/
+env.bak/
+venv.bak/
 
-# IDE
+# IDE and editor
 .vscode/
 .idea/
 *.swp
 *.swo
+*.tmp
 
 # OS
 .DS_Store
@@ -41,16 +43,21 @@ Thumbs.db
 # Logs
 *.log
 
-# Coverage
-.coverage
-htmlcov/
-.coverage.*
-.cache
-
 # Environment variables
 .env
 .env.local
 *.env*
+
+# Coverage reports
+.coverage
+htmlcov/
+.coverage.*
+
+# Pytest
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
 
 # Distribution / packaging
 .Python
@@ -73,23 +80,18 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# PyInstaller
-*.manifest
-*.spec
+# Debug
+debug.log
+*.trace
 
 # Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage*
 .coverage
+.coverage.*
 .cache
 nosetests.xml
 coverage.xml
 *.cover
-*.py,cover
 .hypothesis/
-.pytest_cache/
 
 # Translations
 *.mo
@@ -122,26 +124,39 @@ celerybeat-schedule
 celerybeat.pid
 
 # Sage
-*.sage.py
+.dvips.cache
+.editorconfig
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
+# Rope
 .ropeproject
 
+# Sphinx
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jython
+jython-*/
+
+# Cython
+*.so
+
+# PyInstaller
+*.manifest
+*.spec
+
+# CastXML
+*.xml
+
+# Doctrees
+.doctrees/
+
+# ZPUI
+.zpui*
+
 # mkdocs documentation
-/site
+/site/
 
 # mypy
 .mypy_cache/
@@ -151,5 +166,36 @@ dmypy.json
 # Pyre
 .pyre/
 
-# End of https://github.com/github/gitignore/blob/main/Python.gitignore
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```

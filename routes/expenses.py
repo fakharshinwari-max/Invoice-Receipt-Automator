@@ -1,6 +1,6 @@
 """Expense and receipt tracking routes."""
 
-from flask import Blueprint, render_template, redirect, url_for, flash, request, send_file
+from flask import Blueprint, render_template, redirect, url_for, flash, request, send_file, current_app
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from extensions import db
