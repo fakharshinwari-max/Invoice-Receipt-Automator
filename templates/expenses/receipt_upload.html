@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Upload Receipts{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6">Upload Receipts (Batch)</h1>
+    <form method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+        <div id="receipts-container">
+            <div class="receipt-entry border-b border-gray-200 pb-4 mb-4">
+                <div class="mb-2">
+                    <label class="block text-sm font-medium">Receipt Image/PDF</label>
+                    <input type="file" name="receipts" accept="image/*,application/pdf" class="w-full">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label>Description</label><input type="text" name="descriptions" class="w-full border rounded px-2 py-1"></div>
+                    <div><label>Amount</label><input type="number" step="0.01" name="amounts" class="w-full border rounded px-2 py-1"></div>
+                    <div><label>Category</label><select name="categories" class="w-full border rounded px-2 py-1">
+                        {% for cat in expense_categories %}<option value="{{ cat }}">{{ cat }}</option>{% endfor %}
+                    </select></div>
+                    <div><label>Date</label><input type="date" name="dates" class="w-full border rounded px-2 py-1"></div>
+                    <div><label>Vendor</label><input type="text" name="vendors" class="w-full border rounded px-2 py-1"></div>
+                    <div><label>Job</label><select name="job_ids" class="w-full border rounded px-2 py-1">
+                        <option value="">None</option>{% for job in jobs %}<option value="{{ job.id }}">{{ job.name }}</option>{% endfor %}
+                    </select></div>
+                </div>
+            </div>
+        </div>
+        <button type="button" onclick="addReceiptEntry()" class="bg-gray-500 text-white px-4 py-2 rounded">+ Add Another Receipt</button>
+        <div class="flex justify-end space-x-3 mt-6">
+            <a href="{{ url_for('expenses.index') }}" class="px-4 py-2 border rounded-lg">Cancel</a>
+            <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg">Upload All</button>
+        </div>
+    </form>
+</div>
+<script>
+function addReceiptEntry() {
+    const container = document.getElementById('receipts-container');
+    const newEntry = container.children[0].cloneNode(true);
+    newEntry.querySelectorAll('input, select').forEach(el => el.value = '');
+    container.appendChild(newEntry);
+}
+</script>
+{% endblock %}

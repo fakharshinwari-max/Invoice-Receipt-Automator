@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}{{ client.name }} - TradeFlow Invoice{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">{{ client.name }}</h1>
+        <div class="space-x-2">
+            <a href="{{ url_for('clients.edit', client_id=client.id) }}" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg">Edit</a>
+            <a href="{{ url_for('clients.index') }}" class="border border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-2 rounded-lg">Back to Clients</a>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">Contact Information</h2>
+        <div class="space-y-2">
+            <p><strong>Email:</strong> {{ client.email or 'Not provided' }}</p>
+            <p><strong>Phone:</strong> {{ client.phone or 'Not provided' }}</p>
+            <p><strong>Address:</strong><br>{{ client.address|nl2br or 'Not provided' }}</p>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+        <h2 class="text-lg font-semibold mb-4">Invoices</h2>
+        {% if client.invoices %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-900">
+                        <tr>
+                            <th class="px-4 py-2 text-left">Invoice #</th>
+                            <th class="px-4 py-2 text-left">Date</th>
+                            <th class="px-4 py-2 text-left">Total</th>
+                            <th class="px-4 py-2 text-left">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invoice in client.invoices %}
+                        <tr>
+                            <td class="px-4 py-2">{{ invoice.invoice_number }}</td>
+                            <td class="px-4 py-2">{{ invoice.issue_date.strftime('%Y-%m-%d') }}</td>
+                            <td class="px-4 py-2">${{ "%.2f"|format(invoice.total) }}</td>
+                            <td class="px-4 py-2">{{ invoice.status }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-gray-600 dark:text-gray-400">No invoices for this client yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Create Job - TradeFlow Invoice{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6">Create New Job / Project</h1>
+    <form method="POST" class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-4">
+            {{ form.client_id.label(class="block text-sm font-medium mb-1") }}
+            {{ form.client_id(class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700") }}
+            {% for error in form.client_id.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+            {% endfor %}
+        </div>
+        
+        <div class="mb-4">
+            {{ form.name.label(class="block text-sm font-medium mb-1") }}
+            {{ form.name(class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700") }}
+            {% for error in form.name.errors %}
+                <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+            {% endfor %}
+        </div>
+        
+        <div class="mb-4">
+            {{ form.description.label(class="block text-sm font-medium mb-1") }}
+            {{ form.description(class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700", rows=3) }}
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                {{ form.status.label(class="block text-sm font-medium mb-1") }}
+                {{ form.status(class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700") }}
+            </div>
+            <div>
+                {{ form.budget.label(class="block text-sm font-medium mb-1") }}
+                {{ form.budget(class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700") }}
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                {{ form.start_date.label(class="block text-sm font-medium mb-1") }}
+                {{ form.start_date(class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700", type="date") }}
+            </div>
+            <div>
+                {{ form.end_date.label(class="block text-sm font-medium mb-1") }}
+                {{ form.end_date(class="w-full px-3 py-2 border rounded-lg dark:bg-gray-700", type="date") }}
+            </div>
+        </div>
+        
+        <div class="flex justify-end space-x-3">
+            <a href="{{ url_for('jobs.index') }}" class="px-4 py-2 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">Cancel</a>
+            <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg">Create Job</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

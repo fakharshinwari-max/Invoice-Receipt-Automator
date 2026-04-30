@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ job.name }} - TradeFlow Invoice{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">{{ job.name }}</h1>
+        <div class="space-x-2">
+            <a href="{{ url_for('jobs.edit', job_id=job.id) }}" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg">Edit</a>
+            <a href="{{ url_for('jobs.index') }}" class="border border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-2 rounded-lg">Back</a>
+        </div>
+    </div>
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 space-y-4">
+        <p><strong>Client:</strong> {{ job.client.name if job.client else '-' }}</p>
+        <p><strong>Status:</strong> {{ job.status }}</p>
+        <p><strong>Budget:</strong> ${{ "%.2f"|format(job.budget or 0) }}</p>
+        <p><strong>Start Date:</strong> {{ job.start_date.strftime('%Y-%m-%d') if job.start_date else '-' }}</p>
+        <p><strong>End Date:</strong> {{ job.end_date.strftime('%Y-%m-%d') if job.end_date else '-' }}</p>
+        <p><strong>Description:</strong><br>{{ job.description or '-' }}</p>
+    </div>
+</div>
+{% endblock %}
