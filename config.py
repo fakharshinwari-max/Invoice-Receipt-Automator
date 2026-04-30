@@ -105,10 +105,3 @@ config = {
     'production': ProductionConfig,
     'default': DevelopmentConfig
 }
-
-
-config = {
-    'development': DevelopmentConfig,
-    'production': ProductionConfig,
-    'default': DevelopmentConfig
-}

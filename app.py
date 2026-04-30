@@ -88,7 +88,6 @@ def create_app(config_class=Config):
         return jsonify({'status': 'healthy', 'timestamp': datetime.utcnow().isoformat()})
     
     # Context processor to make trade types available in templates
-        # Context processor to make trade types available in templates
     @app.context_processor
     def inject_globals():
         return {
@@ -110,32 +109,36 @@ app = create_app()
 
 
 if __name__ == '__main__':
+    # Note: In production, use Flask-Migrate for database migrations
+    # and do not create admin users automatically.
     with app.app_context():
         db.create_all()
         
-        # Create admin user for testing (remove in production)
-        if not User.query.filter_by(email='admin@example.com').first():
-            admin = User(
-                email='admin@example.com',
-                trade_type='consultant'
-            )
-            admin.set_password('password123')
-            admin.is_premium = True
-            
-            db.session.add(admin)
-            
-            # Create business profile
-            profile = BusinessProfile(
-                user=admin,
-                business_name='Demo Consulting',
-                address='123 Business St\nCity, State 12345',
-                phone='(555) 123-4567',
-                currency='USD',
-                default_tax_rate=8.5
-            )
-            db.session.add(profile)
-            
-            db.session.commit()
-            print("Admin user created: admin@example.com / password123")
+        # Create a default admin user only if environment variable is set
+        # This prevents automatic admin creation in production
+        if os.environ.get('CREATE_TEST_ADMIN') == 'true':
+            if not User.query.filter_by(email='admin@example.com').first():
+                admin = User(
+                    email='admin@example.com',
+                    trade_type='consultant'
+                )
+                admin.set_password('password123')
+                admin.is_premium = True
+                
+                db.session.add(admin)
+                
+                # Create business profile
+                profile = BusinessProfile(
+                    user=admin,
+                    business_name='Demo Consulting',
+                    address='123 Business St\nCity, State 12345',
+                    phone='(555) 123-4567',
+                    currency='USD',
+                    default_tax_rate=8.5
+                )
+                db.session.add(profile)
+                
+                db.session.commit()
+                print("Admin user created: admin@example.com / password123")
     
     app.run(debug=True, host='0.0.0.0', port=5000)
